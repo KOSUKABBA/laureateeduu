@@ -174,6 +174,29 @@ body{overflow-x:clip}
 .tdots button{width:10px;height:10px;border:0;padding:0;border-radius:5px;background:rgba(107,30,48,.28);cursor:pointer;transition:width .25s,background .25s}
 .tdots button.on{width:30px;background:var(--maroon)}
 @media(prefers-reduced-motion:reduce){.tslide,.pop{transition:none}}
+.hright{display:flex;align-items:center;gap:10px}
+.burger{display:none;width:44px;height:44px;border:1px solid rgba(107,30,48,.3);border-radius:10px;background:rgba(107,30,48,.08);cursor:pointer;padding:0;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{display:block;width:20px;height:2px;border-radius:1px;background:var(--maroon);transition:transform .2s,opacity .2s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mnav{display:none}
+.svc.dup{display:none}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-33.3333%)}}
+@media(max-width:820px){
+  .burger{display:flex}
+  .mnav{position:fixed;top:76px;left:12px;right:12px;z-index:25;padding:8px;border-radius:16px;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.9);box-shadow:0 16px 40px rgba(30,6,14,.25)}
+  .mnav.open{display:block}
+  .mnav a{display:block;padding:15px 16px;border-radius:10px;font-size:16px;font-weight:700;color:var(--ink);text-decoration:none}
+  .mnav a:hover,.mnav a:focus-visible{background:rgba(107,30,48,.1);color:var(--maroon);outline:none}
+  .marquee{margin:0 -6vw;overflow:hidden;padding:12px 0 24px}
+  .track{display:flex;width:max-content;animation:slide 30s linear infinite;will-change:transform}
+  .marquee:hover .track,.marquee:active .track{animation-play-state:paused}
+  .svc,.svc.dup{display:flex;gap:20px;padding-right:20px;max-width:none;margin:0}
+  .svc .card{flex:none;width:262px}
+}
+@media(max-width:820px) and (prefers-reduced-motion:reduce){.track{animation:none;width:auto}.marquee{overflow-x:auto}.svc.dup{display:none}}
+@media(min-width:821px){.mnav{display:none!important}}
 footer{background:var(--maroon-d);color:rgba(255,255,255,.8);text-align:center;padding:22px;font-size:13px}
 @media(max-width:820px){.about{grid-template-columns:1fr;gap:1.6rem}.sec{padding:64px 6vw}}
 @media(max-width:1000px){.svc{grid-template-columns:1fr 1fr}}
@@ -196,8 +219,11 @@ footer{background:var(--maroon-d);color:rgba(255,255,255,.8);text-align:center;p
         <a class="pl" href="https://www.tiktok.com/@laureate_edu" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 3v10.5a4.5 4.5 0 1 1-4.5-4.5M16 3c.3 2.5 2 4.2 4.5 4.5"/></svg>TikTok</a>
         <small>+234 810 643 0035</small></div></div></div>
   </nav>
-  <a class="btn btn-primary js-apply" href="#apply">Apply Now</a>
+  <div class="hright"><a class="btn btn-primary js-apply" href="#apply">Apply Now</a><button type="button" class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button></div>
 </header>
+<div class="mnav" id="mnav" aria-label="Mobile menu">
+  <a href="#home">Home</a><a href="#about">About Us</a><a href="#services">Our Services</a><a href="#contact">Contact</a>
+</div>
 
 <section class="hero" id="home">
   <div id="bgs"></div>
@@ -225,12 +251,12 @@ footer{background:var(--maroon-d);color:rgba(255,255,255,.8);text-align:center;p
 
 <section class="sec glassbg" id="services">
   <h2>Our Services</h2>
-  <div class="svc">
+  <div class="marquee"><div class="track"><div class="svc">
     <div class="card glass"><div class="top"><span class="ic"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5M22 9v6"/></svg></span><h3>Academic Programs</h3></div><p>Find undergraduate and postgraduate courses that match your goals, and get help choosing the right university and country.</p><div class="tag"><a href="https://wa.me/2348106430035?text=Hello%20Laureate%20Global%20Education,%20I%20would%20like%20to%20know%20more%20about%20Academic%20Programs." target="_blank" rel="noopener">Ask about this</a></div></div>
     <div class="card glass"><div class="top"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v11M9.5 9.5c0-1 1-1.5 2.5-1.5s2.5.5 2.5 1.5-1 1.5-2.5 1.5-2.5.5-2.5 1.5 1 1.5 2.5 1.5 2.5-.5 2.5-1.5"/></svg></span><h3>Scholarships and Financial Aid</h3></div><p>Learn which scholarships and funding options you may qualify for, and get help preparing strong applications.</p><div class="tag"><a href="https://wa.me/2348106430035?text=Hello%20Laureate%20Global%20Education,%20I%20would%20like%20to%20know%20more%20about%20Scholarships%20and%20Financial%20Aid." target="_blank" rel="noopener">Ask about this</a></div></div>
     <div class="card glass"><div class="top"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></svg></span><h3>Career Support</h3></div><p>Plan your path after graduation with guidance on CVs, interviews and finding work opportunities abroad.</p><div class="tag"><a href="https://wa.me/2348106430035?text=Hello%20Laureate%20Global%20Education,%20I%20would%20like%20to%20know%20more%20about%20Career%20Support." target="_blank" rel="noopener">Ask about this</a></div></div>
     <div class="card glass"><div class="top"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.5 0 4.5 2 4.5 5"/></svg></span><h3>Community Services</h3></div><p>Meet other students heading abroad and get support settling in, before you travel and after you arrive.</p><div class="tag"><a href="https://wa.me/2348106430035?text=Hello%20Laureate%20Global%20Education,%20I%20would%20like%20to%20know%20more%20about%20Community%20Services." target="_blank" rel="noopener">Ask about this</a></div></div>
-  </div>
+  </div></div></div>
 </section>
 
 <section class="sec glassbg alt" id="testimonials">
@@ -478,6 +504,27 @@ show(0); restart();
   box.addEventListener('mouseenter',stop); box.addEventListener('mouseleave',play);
   box.addEventListener('focusin',stop); box.addEventListener('focusout',play);
   go(0); play();
+})();
+</script>
+
+<script>
+(function(){
+  // Mobile menu
+  var burger=document.getElementById('burger'), mnav=document.getElementById('mnav');
+  function setMenu(open){ mnav.classList.toggle('open',open); burger.setAttribute('aria-expanded',open); burger.setAttribute('aria-label',open?'Close menu':'Open menu'); }
+  burger.addEventListener('click',function(e){ e.stopPropagation(); setMenu(!mnav.classList.contains('open')); });
+  mnav.addEventListener('click',function(e){ if(e.target.closest('a')) setMenu(false); });
+  document.addEventListener('click',function(e){ if(!mnav.contains(e.target)) setMenu(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') setMenu(false); });
+  window.addEventListener('resize',function(){ if(window.innerWidth>820) setMenu(false); });
+
+  // Services: repeat the cards so the phone slide loops without a gap (copies are hidden on desktop)
+  var svc=document.querySelector('.svc'), track=svc&&svc.parentNode;
+  if(svc) for(var k=0;k<2;k++){
+    var c=svc.cloneNode(true); c.classList.add('dup'); c.setAttribute('aria-hidden','true');
+    [].forEach.call(c.querySelectorAll('a'),function(a){ a.tabIndex=-1; });
+    track.appendChild(c);
+  }
 })();
 </script>
 </body>
